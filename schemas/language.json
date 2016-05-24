@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Defines a language that the API supports. The API may support all or a subset of the languages specified in ISO 639-1",
+    "type": "object",
+    "properties": {
+        "isoCode": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+        }
+    }
+}

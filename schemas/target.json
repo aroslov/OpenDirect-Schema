@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Defines a target category. For example: gender or DMA targeting",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "name": {
+            "type": "string"
+        }
+    }
+}

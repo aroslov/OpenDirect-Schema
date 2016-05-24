@@ -1,0 +1,1996 @@
+<!DOCTYPE HTML><html><head><title>IAB OpenDirect API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/kevinrenskers/raml2html 2.2.0"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>IAB OpenDirect API documentation <small>version v1.5</small></h1><p>https://opendirect-publisher/api/v1.5</p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="accounts" class="panel-title">Accounts</h3></div><div class="panel-body"><div class="top-resource-description"><p>The collection of accounts</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts"><span class="parent"></span>/accounts</a> <span class="methods"><a href="#accounts_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_accounts" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#accounts_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a list of all accounts, optionally filtered</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Add a new account</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/accounts</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a list of all accounts, optionally filtered</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts_get_request" data-toggle="tab">Request</a></li><li><a href="#accounts_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts_get_request"><h3>Query Parameters</h3><ul><li><strong>$filter</strong>: <em>(string)</em><p>OData filter, see <a href="http://www.odata.org/documentation/">http://www.odata.org/documentation/</a></p><p><strong>Example</strong>:</p><pre>contains(Name,&#39;ABC&#39;)</pre></li><li><strong>count</strong>: <em>(integer - minimum: 1)</em><p>Indicates the number of desired records to be returned in the response.</p></li><li><strong>offset</strong>: <em>(integer)</em><p>Indicates the starting point from which the number of records should be returned in the response. If you wish to start with the first record, you must provide 0. Always use the number prior to the record position that is desired. Recommended Count Limit: 250</p></li></ul></div><div class="tab-pane" id="accounts_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Return accounts object</p><h3>Headers</h3><ul><li><strong>X-Total-Count</strong>: <em>(integer)</em><p>Total number of records (for paging)</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "accounts": {
+            "type": "array",
+            "items": {
+                "$ref": "account.json"
+            }
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/accounts</h4></div><div class="modal-body"><div class="alert alert-info"><p>Add a new account</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts_post_request" data-toggle="tab">Request</a></li><li><a href="#accounts_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts_post_request"><h3>Query Parameters</h3><ul><li><strong>$filter</strong>: <em>(string)</em><p>OData filter, see <a href="http://www.odata.org/documentation/">http://www.odata.org/documentation/</a></p><p><strong>Example</strong>:</p><pre>contains(Name,&#39;ABC&#39;)</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "An account defines a buyer-advertiser relationship. Each account associates a buyer with one advertiser and is used to manage orders for one publisher.",
+    "type": "object",
+    "properties": {
+        "advertiserId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "buyerId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "name": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        }
+    },
+    "required": ["advertiserId", "buyerId", "name"]
+}</code></pre></div><div class="tab-pane" id="accounts_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Return for a successful POST request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Returns for a POST, PUT or PATCH request that contains invalid data, or when the requested action (i.e. book) is not valid.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountId_"><span class="parent">/accounts</span>/{accountId}</a> <span class="methods"><a href="#accounts__accountId__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_accounts__accountId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#accounts__accountId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Gets the specified account</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts</span>/{accountId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Gets the specified account</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__get_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__get_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="accounts__accountId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns account object</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "An account defines a buyer-advertiser relationship. Each account associates a buyer with one advertiser and is used to manage orders for one publisher.",
+    "type": "object",
+    "properties": {
+        "advertiserId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "buyerId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "name": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        }
+    },
+    "required": ["advertiserId", "buyerId", "name"]
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountId__assignments"><span class="parent">/accounts/{accountId}</span>/assignments</a> <span class="methods"><a href="#accounts__accountId__assignments_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts__accountId__assignments_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_accounts__accountId__assignments" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The collection of assignments</p></div><div class="list-group"><div onclick="window.location.href = '#accounts__accountId__assignments_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a list of all assignments, optionally filtered</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountId__assignments_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Add a new assignment</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__assignments_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}</span>/assignments</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a list of all assignments, optionally filtered</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__assignments_get_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__assignments_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__assignments_get_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>$filter</strong>: <em>(string)</em><p>OData filter, see <a href="http://www.odata.org/documentation/">http://www.odata.org/documentation/</a></p><p><strong>Example</strong>:</p><pre>contains(Name,&#39;ABC&#39;)</pre></li><li><strong>count</strong>: <em>(integer - minimum: 1)</em><p>Indicates the number of desired records to be returned in the response.</p></li><li><strong>offset</strong>: <em>(integer)</em><p>Indicates the starting point from which the number of records should be returned in the response. If you wish to start with the first record, you must provide 0. Always use the number prior to the record position that is desired. Recommended Count Limit: 250</p></li></ul></div><div class="tab-pane" id="accounts__accountId__assignments_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Return assignments object</p><h3>Headers</h3><ul><li><strong>X-Total-Count</strong>: <em>(integer)</em><p>Total number of records (for paging)</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>assignments</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__assignments_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}</span>/assignments</h4></div><div class="modal-body"><div class="alert alert-info"><p>Add a new assignment</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__assignments_post_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__assignments_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__assignments_post_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>$filter</strong>: <em>(string)</em><p>OData filter, see <a href="http://www.odata.org/documentation/">http://www.odata.org/documentation/</a></p><p><strong>Example</strong>:</p><pre>contains(Name,&#39;ABC&#39;)</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>assignment</code></pre></div><div class="tab-pane" id="accounts__accountId__assignments_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Return for a successful POST request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Returns for a POST, PUT or PATCH request that contains invalid data, or when the requested action (i.e. book) is not valid.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountId__assignments__assignmentId_"><span class="parent">/accounts/{accountId}/assignments</span>/{assignmentId}</a> <span class="methods"><a href="#accounts__accountId__assignments__assignmentId__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts__accountId__assignments__assignmentId__put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts__accountId__assignments__assignmentId__patch"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts__accountId__assignments__assignmentId__delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_accounts__accountId__assignments__assignmentId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#accounts__accountId__assignments__assignmentId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Gets the specified assignments</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountId__assignments__assignmentId__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Updates the specified assignments</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountId__assignments__assignmentId__patch'" class="list-group-item"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Updates the specified assignments</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountId__assignments__assignmentId__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Deletes the specified assignments</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__assignments__assignmentId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/assignments</span>/{assignmentId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Gets the specified assignments</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__assignments__assignmentId__get_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__assignments__assignmentId__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__assignments__assignmentId__get_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>assignmentId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="accounts__accountId__assignments__assignmentId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns assignment object</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>assignment</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__assignments__assignmentId__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/assignments</span>/{assignmentId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Updates the specified assignments</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__assignments__assignmentId__put_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__assignments__assignmentId__put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__assignments__assignmentId__put_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>assignmentId</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>assignment</code></pre></div><div class="tab-pane" id="accounts__accountId__assignments__assignmentId__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns for a successful PUT request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Returns for a POST, PUT or PATCH request that contains invalid data, or when the requested action (i.e. book) is not valid.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__assignments__assignmentId__patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/assignments</span>/{assignmentId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Updates the specified assignments</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__assignments__assignmentId__patch_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__assignments__assignmentId__patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__assignments__assignmentId__patch_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>assignmentId</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>assignment</code></pre></div><div class="tab-pane" id="accounts__accountId__assignments__assignmentId__patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns for a successful PATCH request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Returns for a POST, PUT or PATCH request that contains invalid data, or when the requested action (i.e. book) is not valid.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__assignments__assignmentId__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/assignments</span>/{assignmentId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Deletes the specified assignments</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__assignments__assignmentId__delete_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__assignments__assignmentId__delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__assignments__assignmentId__delete_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>assignmentId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="accounts__accountId__assignments__assignmentId__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns for a successful DELETE request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountId__creatives"><span class="parent">/accounts/{accountId}</span>/creatives</a> <span class="methods"><a href="#accounts__accountId__creatives_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts__accountId__creatives_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_accounts__accountId__creatives" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The collection of creatives</p></div><div class="list-group"><div onclick="window.location.href = '#accounts__accountId__creatives_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a list of all creatives, optionally filtered</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountId__creatives_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Add a new creative</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__creatives_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}</span>/creatives</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a list of all creatives, optionally filtered</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__creatives_get_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__creatives_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__creatives_get_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>$filter</strong>: <em>(string)</em><p>OData filter, see <a href="http://www.odata.org/documentation/">http://www.odata.org/documentation/</a></p><p><strong>Example</strong>:</p><pre>contains(Name,&#39;ABC&#39;)</pre></li><li><strong>count</strong>: <em>(integer - minimum: 1)</em><p>Indicates the number of desired records to be returned in the response.</p></li><li><strong>offset</strong>: <em>(integer)</em><p>Indicates the starting point from which the number of records should be returned in the response. If you wish to start with the first record, you must provide 0. Always use the number prior to the record position that is desired. Recommended Count Limit: 250</p></li></ul></div><div class="tab-pane" id="accounts__accountId__creatives_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Return creatives object</p><h3>Headers</h3><ul><li><strong>X-Total-Count</strong>: <em>(integer)</em><p>Total number of records (for paging)</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "creatives": {
+            "type": "array",
+            "items": {
+                "$ref": "creative.json"
+            }
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__creatives_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}</span>/creatives</h4></div><div class="modal-body"><div class="alert alert-info"><p>Add a new creative</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__creatives_post_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__creatives_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__creatives_post_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>$filter</strong>: <em>(string)</em><p>OData filter, see <a href="http://www.odata.org/documentation/">http://www.odata.org/documentation/</a></p><p><strong>Example</strong>:</p><pre>contains(Name,&#39;ABC&#39;)</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Defines a Creative resource. The Creative provides information about the ad to be displayed for a line of the order.",
+    "type": "object",
+    "properties": {
+        "accountId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "adFormatType": {
+            "$ref" : "adformattype.json"
+        },
+        "adRejectionReason": {
+            "type": "string"
+        },
+        "status": {
+            "type": {
+                "enum": ["Pending", "Approved", "Disapproved", "Limited"]
+            }
+        },
+        "backupFlashAsset": {
+            "type": "string"
+        },
+        "clickUrl": {
+            "type": "string"
+        },
+        "creativeAsset": {
+            "type": "string"
+        },
+        "geometry": {
+            "$ref" : "size.json"
+        },
+        "httpsCompatible": {
+            "type": "boolean"
+        },
+        "id": {
+            "type": "string"
+        },
+        "language": {
+            "$ref" : "language.json"
+        },
+        "maturityLevel": {
+            "$ref" : "maturitylevel.json"
+        },
+        "name": {
+            "type": "string"
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        }
+    },
+    "required": ["advertiserId", "buyerId", "name"]
+}</code></pre></div><div class="tab-pane" id="accounts__accountId__creatives_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Return for a successful POST request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Returns for a POST, PUT or PATCH request that contains invalid data, or when the requested action (i.e. book) is not valid.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountId__creatives__creativeId_"><span class="parent">/accounts/{accountId}/creatives</span>/{creativeId}</a> <span class="methods"><a href="#accounts__accountId__creatives__creativeId__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts__accountId__creatives__creativeId__put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts__accountId__creatives__creativeId__patch"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts__accountId__creatives__creativeId__delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_accounts__accountId__creatives__creativeId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#accounts__accountId__creatives__creativeId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Gets the specified creatives</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountId__creatives__creativeId__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Updates the specified creatives</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountId__creatives__creativeId__patch'" class="list-group-item"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Updates the specified creatives</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountId__creatives__creativeId__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Deletes the specified creatives</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__creatives__creativeId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/creatives</span>/{creativeId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Gets the specified creatives</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__creatives__creativeId__get_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__creatives__creativeId__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__creatives__creativeId__get_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>creativeId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="accounts__accountId__creatives__creativeId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns creative object</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Defines a Creative resource. The Creative provides information about the ad to be displayed for a line of the order.",
+    "type": "object",
+    "properties": {
+        "accountId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "adFormatType": {
+            "$ref" : "adformattype.json"
+        },
+        "adRejectionReason": {
+            "type": "string"
+        },
+        "status": {
+            "type": {
+                "enum": ["Pending", "Approved", "Disapproved", "Limited"]
+            }
+        },
+        "backupFlashAsset": {
+            "type": "string"
+        },
+        "clickUrl": {
+            "type": "string"
+        },
+        "creativeAsset": {
+            "type": "string"
+        },
+        "geometry": {
+            "$ref" : "size.json"
+        },
+        "httpsCompatible": {
+            "type": "boolean"
+        },
+        "id": {
+            "type": "string"
+        },
+        "language": {
+            "$ref" : "language.json"
+        },
+        "maturityLevel": {
+            "$ref" : "maturitylevel.json"
+        },
+        "name": {
+            "type": "string"
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        }
+    },
+    "required": ["advertiserId", "buyerId", "name"]
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__creatives__creativeId__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/creatives</span>/{creativeId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Updates the specified creatives</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__creatives__creativeId__put_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__creatives__creativeId__put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__creatives__creativeId__put_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>creativeId</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Defines a Creative resource. The Creative provides information about the ad to be displayed for a line of the order.",
+    "type": "object",
+    "properties": {
+        "accountId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "adFormatType": {
+            "$ref" : "adformattype.json"
+        },
+        "adRejectionReason": {
+            "type": "string"
+        },
+        "status": {
+            "type": {
+                "enum": ["Pending", "Approved", "Disapproved", "Limited"]
+            }
+        },
+        "backupFlashAsset": {
+            "type": "string"
+        },
+        "clickUrl": {
+            "type": "string"
+        },
+        "creativeAsset": {
+            "type": "string"
+        },
+        "geometry": {
+            "$ref" : "size.json"
+        },
+        "httpsCompatible": {
+            "type": "boolean"
+        },
+        "id": {
+            "type": "string"
+        },
+        "language": {
+            "$ref" : "language.json"
+        },
+        "maturityLevel": {
+            "$ref" : "maturitylevel.json"
+        },
+        "name": {
+            "type": "string"
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        }
+    },
+    "required": ["advertiserId", "buyerId", "name"]
+}</code></pre></div><div class="tab-pane" id="accounts__accountId__creatives__creativeId__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns for a successful PUT request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Returns for a POST, PUT or PATCH request that contains invalid data, or when the requested action (i.e. book) is not valid.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__creatives__creativeId__patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/creatives</span>/{creativeId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Updates the specified creatives</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__creatives__creativeId__patch_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__creatives__creativeId__patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__creatives__creativeId__patch_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>creativeId</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Defines a Creative resource. The Creative provides information about the ad to be displayed for a line of the order.",
+    "type": "object",
+    "properties": {
+        "accountId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "adFormatType": {
+            "$ref" : "adformattype.json"
+        },
+        "adRejectionReason": {
+            "type": "string"
+        },
+        "status": {
+            "type": {
+                "enum": ["Pending", "Approved", "Disapproved", "Limited"]
+            }
+        },
+        "backupFlashAsset": {
+            "type": "string"
+        },
+        "clickUrl": {
+            "type": "string"
+        },
+        "creativeAsset": {
+            "type": "string"
+        },
+        "geometry": {
+            "$ref" : "size.json"
+        },
+        "httpsCompatible": {
+            "type": "boolean"
+        },
+        "id": {
+            "type": "string"
+        },
+        "language": {
+            "$ref" : "language.json"
+        },
+        "maturityLevel": {
+            "$ref" : "maturitylevel.json"
+        },
+        "name": {
+            "type": "string"
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        }
+    },
+    "required": ["advertiserId", "buyerId", "name"]
+}</code></pre></div><div class="tab-pane" id="accounts__accountId__creatives__creativeId__patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns for a successful PATCH request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Returns for a POST, PUT or PATCH request that contains invalid data, or when the requested action (i.e. book) is not valid.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__creatives__creativeId__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/creatives</span>/{creativeId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Deletes the specified creatives</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__creatives__creativeId__delete_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__creatives__creativeId__delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__creatives__creativeId__delete_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>creativeId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="accounts__accountId__creatives__creativeId__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns for a successful DELETE request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountId__orders"><span class="parent">/accounts/{accountId}</span>/orders</a> <span class="methods"><a href="#accounts__accountId__orders_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts__accountId__orders_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_accounts__accountId__orders" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The collection of orders</p></div><div class="list-group"><div onclick="window.location.href = '#accounts__accountId__orders_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a list of all orders, optionally filtered</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountId__orders_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Add a new order</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__orders_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}</span>/orders</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a list of all orders, optionally filtered</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__orders_get_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__orders_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__orders_get_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>$filter</strong>: <em>(string)</em><p>OData filter, see <a href="http://www.odata.org/documentation/">http://www.odata.org/documentation/</a></p><p><strong>Example</strong>:</p><pre>contains(Name,&#39;ABC&#39;)</pre></li><li><strong>count</strong>: <em>(integer - minimum: 1)</em><p>Indicates the number of desired records to be returned in the response.</p></li><li><strong>offset</strong>: <em>(integer)</em><p>Indicates the starting point from which the number of records should be returned in the response. If you wish to start with the first record, you must provide 0. Always use the number prior to the record position that is desired. Recommended Count Limit: 250</p></li></ul></div><div class="tab-pane" id="accounts__accountId__orders_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Return orders object</p><h3>Headers</h3><ul><li><strong>X-Total-Count</strong>: <em>(integer)</em><p>Total number of records (for paging)</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "orders": {
+            "type": "array",
+            "items": {
+                "$ref": "order.json"
+            }
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__orders_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}</span>/orders</h4></div><div class="modal-body"><div class="alert alert-info"><p>Add a new order</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__orders_post_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__orders_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__orders_post_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>$filter</strong>: <em>(string)</em><p>OData filter, see <a href="http://www.odata.org/documentation/">http://www.odata.org/documentation/</a></p><p><strong>Example</strong>:</p><pre>contains(Name,&#39;ABC&#39;)</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "The Order resource specifies the plan’s start and end dates, estimated budget, currency, and preferred billing method for all line items in the order",
+    "type": "object",
+    "properties": {
+        "accountId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "brand": {
+            "type": "string",
+            "maxLength": 25
+        },
+        "budget": {
+            "type": "number",
+            "minimum": 0
+        },
+        "contacts": {
+            "type": "array",
+            "items": {
+                "$ref": "contact.json"
+            }
+        },
+        "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+        },
+        "endDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "orderExpiryDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "industry": {
+            "$ref": "industry.json"
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+        },
+        "orderStatus": {
+            "type": "string"
+        },
+        "packageOnly": {
+            "type": "boolean"
+        },
+        "preferredBillingMethod": {
+            "type": {
+                "enum": ["Electronic", "Postal"]
+            }
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        },
+        "startDate": {
+            "type": "string",
+            "maxLength": 26
+        }
+    },
+    "required": ["currency", "name"]
+}</code></pre></div><div class="tab-pane" id="accounts__accountId__orders_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Return for a successful POST request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Returns for a POST, PUT or PATCH request that contains invalid data, or when the requested action (i.e. book) is not valid.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountId__orders__orderId_"><span class="parent">/accounts/{accountId}/orders</span>/{orderId}</a> <span class="methods"><a href="#accounts__accountId__orders__orderId__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts__accountId__orders__orderId__put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts__accountId__orders__orderId__patch"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts__accountId__orders__orderId__delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_accounts__accountId__orders__orderId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#accounts__accountId__orders__orderId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Gets the specified orders</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountId__orders__orderId__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Updates the specified orders</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountId__orders__orderId__patch'" class="list-group-item"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Updates the specified orders</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountId__orders__orderId__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Deletes the specified orders</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__orders__orderId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/orders</span>/{orderId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Gets the specified orders</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__orders__orderId__get_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__orders__orderId__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__orders__orderId__get_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>orderId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="accounts__accountId__orders__orderId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns order object</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "The Order resource specifies the plan’s start and end dates, estimated budget, currency, and preferred billing method for all line items in the order",
+    "type": "object",
+    "properties": {
+        "accountId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "brand": {
+            "type": "string",
+            "maxLength": 25
+        },
+        "budget": {
+            "type": "number",
+            "minimum": 0
+        },
+        "contacts": {
+            "type": "array",
+            "items": {
+                "$ref": "contact.json"
+            }
+        },
+        "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+        },
+        "endDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "orderExpiryDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "industry": {
+            "$ref": "industry.json"
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+        },
+        "orderStatus": {
+            "type": "string"
+        },
+        "packageOnly": {
+            "type": "boolean"
+        },
+        "preferredBillingMethod": {
+            "type": {
+                "enum": ["Electronic", "Postal"]
+            }
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        },
+        "startDate": {
+            "type": "string",
+            "maxLength": 26
+        }
+    },
+    "required": ["currency", "name"]
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__orders__orderId__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/orders</span>/{orderId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Updates the specified orders</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__orders__orderId__put_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__orders__orderId__put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__orders__orderId__put_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>orderId</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "The Order resource specifies the plan’s start and end dates, estimated budget, currency, and preferred billing method for all line items in the order",
+    "type": "object",
+    "properties": {
+        "accountId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "brand": {
+            "type": "string",
+            "maxLength": 25
+        },
+        "budget": {
+            "type": "number",
+            "minimum": 0
+        },
+        "contacts": {
+            "type": "array",
+            "items": {
+                "$ref": "contact.json"
+            }
+        },
+        "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+        },
+        "endDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "orderExpiryDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "industry": {
+            "$ref": "industry.json"
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+        },
+        "orderStatus": {
+            "type": "string"
+        },
+        "packageOnly": {
+            "type": "boolean"
+        },
+        "preferredBillingMethod": {
+            "type": {
+                "enum": ["Electronic", "Postal"]
+            }
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        },
+        "startDate": {
+            "type": "string",
+            "maxLength": 26
+        }
+    },
+    "required": ["currency", "name"]
+}</code></pre></div><div class="tab-pane" id="accounts__accountId__orders__orderId__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns for a successful PUT request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Returns for a POST, PUT or PATCH request that contains invalid data, or when the requested action (i.e. book) is not valid.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__orders__orderId__patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/orders</span>/{orderId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Updates the specified orders</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__orders__orderId__patch_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__orders__orderId__patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__orders__orderId__patch_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>orderId</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "The Order resource specifies the plan’s start and end dates, estimated budget, currency, and preferred billing method for all line items in the order",
+    "type": "object",
+    "properties": {
+        "accountId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "brand": {
+            "type": "string",
+            "maxLength": 25
+        },
+        "budget": {
+            "type": "number",
+            "minimum": 0
+        },
+        "contacts": {
+            "type": "array",
+            "items": {
+                "$ref": "contact.json"
+            }
+        },
+        "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+        },
+        "endDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "orderExpiryDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "industry": {
+            "$ref": "industry.json"
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+        },
+        "orderStatus": {
+            "type": "string"
+        },
+        "packageOnly": {
+            "type": "boolean"
+        },
+        "preferredBillingMethod": {
+            "type": {
+                "enum": ["Electronic", "Postal"]
+            }
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        },
+        "startDate": {
+            "type": "string",
+            "maxLength": 26
+        }
+    },
+    "required": ["currency", "name"]
+}</code></pre></div><div class="tab-pane" id="accounts__accountId__orders__orderId__patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns for a successful PATCH request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Returns for a POST, PUT or PATCH request that contains invalid data, or when the requested action (i.e. book) is not valid.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__orders__orderId__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/orders</span>/{orderId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Deletes the specified orders</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__orders__orderId__delete_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__orders__orderId__delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__orders__orderId__delete_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>orderId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="accounts__accountId__orders__orderId__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns for a successful DELETE request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountId__orders__orderId__lines"><span class="parent">/accounts/{accountId}/orders/{orderId}</span>/lines</a> <span class="methods"><a href="#accounts__accountId__orders__orderId__lines_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts__accountId__orders__orderId__lines_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_accounts__accountId__orders__orderId__lines" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>The collection of lines</p></div><div class="list-group"><div onclick="window.location.href = '#accounts__accountId__orders__orderId__lines_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a list of all lines, optionally filtered</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountId__orders__orderId__lines_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Add a new line</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__orders__orderId__lines_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/orders/{orderId}</span>/lines</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a list of all lines, optionally filtered</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__orders__orderId__lines_get_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__orders__orderId__lines_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__orders__orderId__lines_get_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>orderId</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - minimum: 1)</em><p>Indicates the number of desired records to be returned in the response.</p></li><li><strong>offset</strong>: <em>(integer)</em><p>Indicates the starting point from which the number of records should be returned in the response. If you wish to start with the first record, you must provide 0. Always use the number prior to the record position that is desired. Recommended Count Limit: 250</p></li></ul></div><div class="tab-pane" id="accounts__accountId__orders__orderId__lines_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Return lines object</p><h3>Headers</h3><ul><li><strong>X-Total-Count</strong>: <em>(integer)</em><p>Total number of records (for paging)</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "lines": {
+            "type": "array",
+            "items": {
+                "$ref": "line.json"
+            }
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__orders__orderId__lines_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/orders/{orderId}</span>/lines</h4></div><div class="modal-body"><div class="alert alert-info"><p>Add a new line</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__orders__orderId__lines_post_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__orders__orderId__lines_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__orders__orderId__lines_post_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>orderId</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Line resources are included in an order and provide details about the product being booked, status, start and end dates, and other settings for the order item.",
+    "type": "object",
+    "properties": {
+        "bookingStatus": {
+            "type": "string"
+        },
+        "comment": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "cost": {
+            "type": "number",
+            "minimum": 0
+        },
+        "endDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "frequencyCount": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "frequencyInterval": {
+            "type": "string",
+            "maxLength": 5
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "quantity": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+        },
+        "orderId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "productId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        },
+        "rate": {
+            "type": "number",
+            "minimum": 0
+        },
+        "rateType": {
+            "$ref": "ratetype.json"
+        },
+        "reservedExpiryDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "startDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "stateChangeReason": {
+            "type": "string"
+        },
+        "targeting": {
+            "type": "array",
+            "items": {
+                "$ref": "segment.json"
+            }
+        },
+        "usesExpandables": {
+            "type": "boolean"
+        }
+    },
+    "required": ["endDate", "name", "productId", "startDate"]
+}</code></pre></div><div class="tab-pane" id="accounts__accountId__orders__orderId__lines_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Return for a successful POST request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Returns for a POST, PUT or PATCH request that contains invalid data, or when the requested action (i.e. book) is not valid.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountId__orders__orderId__lines_stats"><span class="parent">/accounts/{accountId}/orders/{orderId}/lines</span>/stats</a> <span class="methods"><a href="#accounts__accountId__orders__orderId__lines_stats_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_accounts__accountId__orders__orderId__lines_stats" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#accounts__accountId__orders__orderId__lines_stats_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Gets a report for stats</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__orders__orderId__lines_stats_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/orders/{orderId}/lines</span>/stats</h4></div><div class="modal-body"><div class="alert alert-info"><p>Gets a report for stats</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__orders__orderId__lines_stats_get_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__orders__orderId__lines_stats_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__orders__orderId__lines_stats_get_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>orderId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="accounts__accountId__orders__orderId__lines_stats_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns stat object</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>stat</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountId__orders__orderId__lines__lineId_"><span class="parent">/accounts/{accountId}/orders/{orderId}/lines</span>/{lineId}</a> <span class="methods"><a href="#accounts__accountId__orders__orderId__lines__lineId__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts__accountId__orders__orderId__lines__lineId__put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts__accountId__orders__orderId__lines__lineId__patch"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#accounts__accountId__orders__orderId__lines__lineId__delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_accounts__accountId__orders__orderId__lines__lineId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#accounts__accountId__orders__orderId__lines__lineId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Gets the specified lines</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountId__orders__orderId__lines__lineId__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update, reserve, book, or cancel a line</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountId__orders__orderId__lines__lineId__patch'" class="list-group-item"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update, reserve, book, or cancel a line</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#accounts__accountId__orders__orderId__lines__lineId__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Deletes the specified lines</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__orders__orderId__lines__lineId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/orders/{orderId}/lines</span>/{lineId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Gets the specified lines</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__orders__orderId__lines__lineId__get_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__orders__orderId__lines__lineId__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__orders__orderId__lines__lineId__get_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>orderId</strong>: <em>required (string)</em></li><li><strong>lineId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="accounts__accountId__orders__orderId__lines__lineId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns line object</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Line resources are included in an order and provide details about the product being booked, status, start and end dates, and other settings for the order item.",
+    "type": "object",
+    "properties": {
+        "bookingStatus": {
+            "type": "string"
+        },
+        "comment": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "cost": {
+            "type": "number",
+            "minimum": 0
+        },
+        "endDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "frequencyCount": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "frequencyInterval": {
+            "type": "string",
+            "maxLength": 5
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "quantity": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+        },
+        "orderId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "productId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        },
+        "rate": {
+            "type": "number",
+            "minimum": 0
+        },
+        "rateType": {
+            "$ref": "ratetype.json"
+        },
+        "reservedExpiryDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "startDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "stateChangeReason": {
+            "type": "string"
+        },
+        "targeting": {
+            "type": "array",
+            "items": {
+                "$ref": "segment.json"
+            }
+        },
+        "usesExpandables": {
+            "type": "boolean"
+        }
+    },
+    "required": ["endDate", "name", "productId", "startDate"]
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__orders__orderId__lines__lineId__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/orders/{orderId}/lines</span>/{lineId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update, reserve, book, or cancel a line</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__orders__orderId__lines__lineId__put_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__orders__orderId__lines__lineId__put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__orders__orderId__lines__lineId__put_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>orderId</strong>: <em>required (string)</em></li><li><strong>lineId</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>book</strong>: <em>(string)</em><p>Books the line (parameter value is empty)</p></li><li><strong>reserve</strong>: <em>(string)</em><p>Reserves the line (parameter value is empty)</p></li><li><strong>cancel</strong>: <em>(string)</em><p>Cancels the line (parameter value is empty)</p></li><li><strong>reset</strong>: <em>(string)</em><p>Moves the line back to the Draft state (parameter value is empty)</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Line resources are included in an order and provide details about the product being booked, status, start and end dates, and other settings for the order item.",
+    "type": "object",
+    "properties": {
+        "bookingStatus": {
+            "type": "string"
+        },
+        "comment": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "cost": {
+            "type": "number",
+            "minimum": 0
+        },
+        "endDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "frequencyCount": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "frequencyInterval": {
+            "type": "string",
+            "maxLength": 5
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "quantity": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+        },
+        "orderId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "productId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        },
+        "rate": {
+            "type": "number",
+            "minimum": 0
+        },
+        "rateType": {
+            "$ref": "ratetype.json"
+        },
+        "reservedExpiryDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "startDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "stateChangeReason": {
+            "type": "string"
+        },
+        "targeting": {
+            "type": "array",
+            "items": {
+                "$ref": "segment.json"
+            }
+        },
+        "usesExpandables": {
+            "type": "boolean"
+        }
+    },
+    "required": ["endDate", "name", "productId", "startDate"]
+}</code></pre></div><div class="tab-pane" id="accounts__accountId__orders__orderId__lines__lineId__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns for a successful PUT request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Returns for a POST, PUT or PATCH request that contains invalid data, or when the requested action (i.e. book) is not valid.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__orders__orderId__lines__lineId__patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/orders/{orderId}/lines</span>/{lineId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Update, reserve, book, or cancel a line</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__orders__orderId__lines__lineId__patch_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__orders__orderId__lines__lineId__patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__orders__orderId__lines__lineId__patch_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>orderId</strong>: <em>required (string)</em></li><li><strong>lineId</strong>: <em>required (string)</em></li></ul><h3>Query Parameters</h3><ul><li><strong>book</strong>: <em>(string)</em><p>Books the line (parameter value is empty)</p></li><li><strong>reserve</strong>: <em>(string)</em><p>Reserves the line (parameter value is empty)</p></li><li><strong>cancel</strong>: <em>(string)</em><p>Cancels the line (parameter value is empty)</p></li><li><strong>reset</strong>: <em>(string)</em><p>Moves the line back to the Draft state (parameter value is empty)</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Line resources are included in an order and provide details about the product being booked, status, start and end dates, and other settings for the order item.",
+    "type": "object",
+    "properties": {
+        "bookingStatus": {
+            "type": "string"
+        },
+        "comment": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "cost": {
+            "type": "number",
+            "minimum": 0
+        },
+        "endDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "frequencyCount": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "frequencyInterval": {
+            "type": "string",
+            "maxLength": 5
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "quantity": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+        },
+        "orderId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "productId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        },
+        "rate": {
+            "type": "number",
+            "minimum": 0
+        },
+        "rateType": {
+            "$ref": "ratetype.json"
+        },
+        "reservedExpiryDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "startDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "stateChangeReason": {
+            "type": "string"
+        },
+        "targeting": {
+            "type": "array",
+            "items": {
+                "$ref": "segment.json"
+            }
+        },
+        "usesExpandables": {
+            "type": "boolean"
+        }
+    },
+    "required": ["endDate", "name", "productId", "startDate"]
+}</code></pre></div><div class="tab-pane" id="accounts__accountId__orders__orderId__lines__lineId__patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns for a successful PATCH request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Returns for a POST, PUT or PATCH request that contains invalid data, or when the requested action (i.e. book) is not valid.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__orders__orderId__lines__lineId__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/orders/{orderId}/lines</span>/{lineId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Deletes the specified lines</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__orders__orderId__lines__lineId__delete_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__orders__orderId__lines__lineId__delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__orders__orderId__lines__lineId__delete_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>orderId</strong>: <em>required (string)</em></li><li><strong>lineId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="accounts__accountId__orders__orderId__lines__lineId__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns for a successful DELETE request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_accounts__accountId__orders__orderId__lines__lineId__stats"><span class="parent">/accounts/{accountId}/orders/{orderId}/lines/{lineId}</span>/stats</a> <span class="methods"><a href="#accounts__accountId__orders__orderId__lines__lineId__stats_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_accounts__accountId__orders__orderId__lines__lineId__stats" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#accounts__accountId__orders__orderId__lines__lineId__stats_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Gets a report for stats</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="accounts__accountId__orders__orderId__lines__lineId__stats_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/accounts/{accountId}/orders/{orderId}/lines/{lineId}</span>/stats</h4></div><div class="modal-body"><div class="alert alert-info"><p>Gets a report for stats</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#accounts__accountId__orders__orderId__lines__lineId__stats_get_request" data-toggle="tab">Request</a></li><li><a href="#accounts__accountId__orders__orderId__lines__lineId__stats_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="accounts__accountId__orders__orderId__lines__lineId__stats_get_request"><h3>URI Parameters</h3><ul><li><strong>accountId</strong>: <em>required (string)</em></li><li><strong>orderId</strong>: <em>required (string)</em></li><li><strong>lineId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="accounts__accountId__orders__orderId__lines__lineId__stats_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns stat object</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>stat</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="organizations" class="panel-title">Organizations</h3></div><div class="panel-body"><div class="top-resource-description"><p>The collection of organizations</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_organizations"><span class="parent"></span>/organizations</a> <span class="methods"><a href="#organizations_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#organizations_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_organizations" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#organizations_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a list of all organizations, optionally filtered</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#organizations_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Add a new organization</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="organizations_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/organizations</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a list of all organizations, optionally filtered</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#organizations_get_request" data-toggle="tab">Request</a></li><li><a href="#organizations_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="organizations_get_request"><h3>Query Parameters</h3><ul><li><strong>$filter</strong>: <em>(string)</em><p>OData filter, see <a href="http://www.odata.org/documentation/">http://www.odata.org/documentation/</a></p><p><strong>Example</strong>:</p><pre>contains(Name,&#39;ABC&#39;)</pre></li><li><strong>count</strong>: <em>(integer - minimum: 1)</em><p>Indicates the number of desired records to be returned in the response.</p></li><li><strong>offset</strong>: <em>(integer)</em><p>Indicates the starting point from which the number of records should be returned in the response. If you wish to start with the first record, you must provide 0. Always use the number prior to the record position that is desired. Recommended Count Limit: 250</p></li></ul></div><div class="tab-pane" id="organizations_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Return organizations object</p><h3>Headers</h3><ul><li><strong>X-Total-Count</strong>: <em>(integer)</em><p>Total number of records (for paging)</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "organizations": {
+            "type": "array",
+            "items": {
+                "$ref": "organization.json"
+            }
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="organizations_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/organizations</h4></div><div class="modal-body"><div class="alert alert-info"><p>Add a new organization</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#organizations_post_request" data-toggle="tab">Request</a></li><li><a href="#organizations_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="organizations_post_request"><h3>Query Parameters</h3><ul><li><strong>$filter</strong>: <em>(string)</em><p>OData filter, see <a href="http://www.odata.org/documentation/">http://www.odata.org/documentation/</a></p><p><strong>Example</strong>:</p><pre>contains(Name,&#39;ABC&#39;)</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "The organization resource may represent an advertiser or agency (buyer).",
+    "type": "object",
+    "properties": {
+        "address": {
+            "$ref": "address.json"
+        },
+        "contacts": {
+            "type": "array",
+            "items": {
+                "$ref": "contact.json"
+            },
+            "minItems": 1
+        },
+        "disapprovalReason": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "fax": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "industry": {
+            "$ref": "industry.json"
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+        },
+        "phone": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        },
+        "status": {
+            "type": {
+                "enum": ["Pending", "Approved", "Disapproved", "Limited"]
+            }
+        },
+        "url": {
+            "type": "string",
+            "maxLength": 1024
+        }
+    },
+    "required": ["name", "contacts"]
+}</code></pre></div><div class="tab-pane" id="organizations_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Return for a successful POST request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Returns for a POST, PUT or PATCH request that contains invalid data, or when the requested action (i.e. book) is not valid.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_organizations__organizationId_"><span class="parent">/organizations</span>/{organizationId}</a> <span class="methods"><a href="#organizations__organizationId__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#organizations__organizationId__put"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#organizations__organizationId__patch"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#organizations__organizationId__delete"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_organizations__organizationId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#organizations__organizationId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Gets the specified organizations</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#organizations__organizationId__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Updates the specified organizations</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#organizations__organizationId__patch'" class="list-group-item"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Updates the specified organizations</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#organizations__organizationId__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Deletes the specified organizations</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="organizations__organizationId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/organizations</span>/{organizationId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Gets the specified organizations</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#organizations__organizationId__get_request" data-toggle="tab">Request</a></li><li><a href="#organizations__organizationId__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="organizations__organizationId__get_request"><h3>URI Parameters</h3><ul><li><strong>organizationId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="organizations__organizationId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns organization object</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "The organization resource may represent an advertiser or agency (buyer).",
+    "type": "object",
+    "properties": {
+        "address": {
+            "$ref": "address.json"
+        },
+        "contacts": {
+            "type": "array",
+            "items": {
+                "$ref": "contact.json"
+            },
+            "minItems": 1
+        },
+        "disapprovalReason": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "fax": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "industry": {
+            "$ref": "industry.json"
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+        },
+        "phone": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        },
+        "status": {
+            "type": {
+                "enum": ["Pending", "Approved", "Disapproved", "Limited"]
+            }
+        },
+        "url": {
+            "type": "string",
+            "maxLength": 1024
+        }
+    },
+    "required": ["name", "contacts"]
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="organizations__organizationId__put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/organizations</span>/{organizationId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Updates the specified organizations</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#organizations__organizationId__put_request" data-toggle="tab">Request</a></li><li><a href="#organizations__organizationId__put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="organizations__organizationId__put_request"><h3>URI Parameters</h3><ul><li><strong>organizationId</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "The organization resource may represent an advertiser or agency (buyer).",
+    "type": "object",
+    "properties": {
+        "address": {
+            "$ref": "address.json"
+        },
+        "contacts": {
+            "type": "array",
+            "items": {
+                "$ref": "contact.json"
+            },
+            "minItems": 1
+        },
+        "disapprovalReason": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "fax": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "industry": {
+            "$ref": "industry.json"
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+        },
+        "phone": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        },
+        "status": {
+            "type": {
+                "enum": ["Pending", "Approved", "Disapproved", "Limited"]
+            }
+        },
+        "url": {
+            "type": "string",
+            "maxLength": 1024
+        }
+    },
+    "required": ["name", "contacts"]
+}</code></pre></div><div class="tab-pane" id="organizations__organizationId__put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns for a successful PUT request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Returns for a POST, PUT or PATCH request that contains invalid data, or when the requested action (i.e. book) is not valid.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="organizations__organizationId__patch"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_patch">patch <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/organizations</span>/{organizationId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Updates the specified organizations</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#organizations__organizationId__patch_request" data-toggle="tab">Request</a></li><li><a href="#organizations__organizationId__patch_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="organizations__organizationId__patch_request"><h3>URI Parameters</h3><ul><li><strong>organizationId</strong>: <em>required (string)</em></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "The organization resource may represent an advertiser or agency (buyer).",
+    "type": "object",
+    "properties": {
+        "address": {
+            "$ref": "address.json"
+        },
+        "contacts": {
+            "type": "array",
+            "items": {
+                "$ref": "contact.json"
+            },
+            "minItems": 1
+        },
+        "disapprovalReason": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "fax": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "industry": {
+            "$ref": "industry.json"
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+        },
+        "phone": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        },
+        "status": {
+            "type": {
+                "enum": ["Pending", "Approved", "Disapproved", "Limited"]
+            }
+        },
+        "url": {
+            "type": "string",
+            "maxLength": 1024
+        }
+    },
+    "required": ["name", "contacts"]
+}</code></pre></div><div class="tab-pane" id="organizations__organizationId__patch_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns for a successful PATCH request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Returns for a POST, PUT or PATCH request that contains invalid data, or when the requested action (i.e. book) is not valid.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="organizations__organizationId__delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/organizations</span>/{organizationId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Deletes the specified organizations</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#organizations__organizationId__delete_request" data-toggle="tab">Request</a></li><li><a href="#organizations__organizationId__delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="organizations__organizationId__delete_request"><h3>URI Parameters</h3><ul><li><strong>organizationId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="organizations__organizationId__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns for a successful DELETE request</p><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="products" class="panel-title">Products</h3></div><div class="panel-body"><div class="top-resource-description"><p>The collection of products</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_products"><span class="parent"></span>/products</a> <span class="methods"><a href="#products_get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_products" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#products_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Get a list of all products, optionally filtered</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="products_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/products</h4></div><div class="modal-body"><div class="alert alert-info"><p>Get a list of all products, optionally filtered</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#products_get_request" data-toggle="tab">Request</a></li><li><a href="#products_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="products_get_request"><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - minimum: 1)</em><p>Indicates the number of desired records to be returned in the response.</p></li><li><strong>offset</strong>: <em>(integer)</em><p>Indicates the starting point from which the number of records should be returned in the response. If you wish to start with the first record, you must provide 0. Always use the number prior to the record position that is desired. Recommended Count Limit: 250</p></li></ul></div><div class="tab-pane" id="products_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Return products object</p><h3>Headers</h3><ul><li><strong>X-Total-Count</strong>: <em>(integer)</em><p>Total number of records (for paging)</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "products": {
+            "type": "array",
+            "items": {
+                "$ref": "product.json"
+            }
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_products__productId_"><span class="parent">/products</span>/{productId}</a> <span class="methods"><a href="#products__productId__get"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_products__productId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#products__productId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Gets the specified product</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="products__productId__get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/products</span>/{productId}</h4></div><div class="modal-body"><div class="alert alert-info"><p>Gets the specified product</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#products__productId__get_request" data-toggle="tab">Request</a></li><li><a href="#products__productId__get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="products__productId__get_request"><h3>URI Parameters</h3><ul><li><strong>productId</strong>: <em>required (string)</em></li></ul></div><div class="tab-pane" id="products__productId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns product object</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "A Product resource identifies anything from an ad placement to a Run of Network product in the publisher’s product catalog.",
+    "type": "object",
+    "properties": {
+        "activeDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "adFormatTypes": {
+            "type": "array",
+            "items": {
+                "$ref" : "adformattype.json"
+            }
+        },
+        "allowNoCreative": {
+            "type": "boolean"
+        },
+        "basePrice": {
+            "type": "number",
+            "minimum": 0
+        },
+        "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+        },
+        "deliveryType": {
+            "$ref" : "deliverytype.json"
+        },
+        "description": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "domain": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "estimatedDailyAvails": {
+            "type": "string"
+        },
+        "geometry": {
+            "type": "array",
+            "items": {
+                "$ref" : "size.json"
+            }
+        },
+        "httpsCompatible": {
+            "type": "boolean"
+        },
+        "icon": {
+            "type": "string"
+        },
+        "id": {
+            "type": "string"
+        },
+        "inventoryType": {
+            "type": "array",
+            "items": {
+                "$ref" : "inventorytype.json"
+            }
+        },
+        "languages": {
+            "type": "array",
+            "items": {
+                "$ref" : "language.json"
+            }
+        },
+        "leadTime": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "name": {
+            "type": "string",
+            "maxLength": 38
+        },
+        "maturityLevel": {
+            "$ref" : "maturitylevel.json"
+        },
+        "maxDuration": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "minDuration": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "minSpend": {
+            "type": "number",
+            "minimum": 0
+        },
+        "position": {
+            "$ref" : "adposition.json"
+        },
+        "productTags": {
+            "type": "array",
+            "items": {
+                "type" : "string",
+                "maxLength" : 100
+            },
+            "maxItems": 500
+        },
+        "rateType": {
+            "$ref": "ratetype.json"
+        },
+        "retirementDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "targetTypes": {
+            "type": "array",
+            "items": {
+                "$ref" : "target.json"
+            }
+        },
+        "timeZone": {
+            "type": "string"
+        },
+        "url": {
+            "type": "string"
+        }
+    },
+    "required": ["adFormatTypes", "basePrice", "currency", "geometry", "id", "rateType"]
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_products_search"><span class="parent">/products</span>/search</a> <span class="methods"><a href="#products_search_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_products_search" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#products_search_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Gets a list of Products from the product catalog that matches the specified filter criteria</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="products_search_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/products</span>/search</h4></div><div class="modal-body"><div class="alert alert-info"><p>Gets a list of Products from the product catalog that matches the specified filter criteria</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#products_search_post_request" data-toggle="tab">Request</a></li><li><a href="#products_search_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="products_search_post_request"><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - minimum: 1)</em><p>Indicates the number of desired records to be returned in the response.</p></li><li><strong>offset</strong>: <em>(integer)</em><p>Indicates the starting point from which the number of records should be returned in the response. If you wish to start with the first record, you must provide 0. Always use the number prior to the record position that is desired. Recommended Count Limit: 250</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>productsearch</code></pre></div><div class="tab-pane" id="products_search_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns a products object</p><h3>Headers</h3><ul><li><strong>X-Total-Count</strong>: <em>(integer)</em><p>Total number of records (for paging)</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "products": {
+            "type": "array",
+            "items": {
+                "$ref": "product.json"
+            }
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Return for POST request that contains invalid data</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_products_avails"><span class="parent">/products</span>/avails</a> <span class="methods"><a href="#products_avails_post"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_products_avails" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#products_avails_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Gets pricing and avails information for the specified products</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="products_avails_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/products</span>/avails</h4></div><div class="modal-body"><div class="alert alert-info"><p>Gets pricing and avails information for the specified products</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>OpenDirect supports OAuth 2.0 for authenticating all API requests.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#products_avails_post_request" data-toggle="tab">Request</a></li><li><a href="#products_avails_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="products_avails_post_request"><h3>Query Parameters</h3><ul><li><strong>count</strong>: <em>(integer - minimum: 1)</em><p>Indicates the number of desired records to be returned in the response.</p></li><li><strong>offset</strong>: <em>(integer)</em><p>Indicates the starting point from which the number of records should be returned in the response. If you wish to start with the first record, you must provide 0. Always use the number prior to the record position that is desired. Recommended Count Limit: 250</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "The ProductAvailsSearch object is used to set search criteria used for listing all product availability and pricing within the given search criteria",
+    "type": "object",
+    "properties": {
+        "accountId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+        },
+        "endDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "frequencyCount": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "frequencyInterval": {
+            "type": "string",
+            "maxLength": 5
+        },
+        "quantity": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "productIds": {
+            "type": "array",
+            "items": {
+                "type" : "string"
+            },
+            "minItems" : 1
+        },
+        "startDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "targeting": {
+            "type": "array",
+            "items": {
+                "$ref": "segment.json"
+            }
+        }
+    },
+    "required": ["endDate", "quantity", "productIds", "startDate"]
+}</code></pre></div><div class="tab-pane" id="products_avails_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Returns a productsavails object</p><h3>Headers</h3><ul><li><strong>X-Total-Count</strong>: <em>(integer)</em><p>Total number of records (for paging)</p></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "The ProductAvails object returns product availability and pricing information defined using the ProductAvailsSearch object",
+    "type": "object",
+    "properties": {
+        "avails" : {
+            "type" : "array",
+            "items" : {
+                "type" : "object",
+                "properties" : {
+                    "availability": {
+                        "type": "integer"
+                    },
+                    "currency": {
+                        "type": "string",
+                        "minLength": 3,
+                        "maxLength": 3
+                    },
+                    "productId": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number",
+                        "minimum": 0
+                    }
+                },
+                "required": ["availability", "currency", "productId", "price"]
+            }
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/302" target="_blank">302</a></h2><p>Returns if the resource has moved. The Location header must include the new URI</p><h2>HTTP status code <a href="http://httpstatus.es/304" target="_blank">304</a></h2><p>Returns for requests that include the If-None- Match header (to support ETags) and the resource has not changed.</p><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Return for POST request that contains invalid data</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "errors": {
+            "type" : "array",
+            "items": {
+                "type": "object",
+                "properties" : {
+                    "errorCode" : {
+                        "type": "string"
+                    }, 
+                    "context" : {
+                        "type": "object"
+                    },
+                    "link" : {
+                        "type": "string"
+                    }, 
+                    "errorMessage" : {
+                        "type": "string"
+                    }
+                },
+                "required": ["errorCode", "errorMessage"]
+            },
+            "minItems" : 1
+        }
+    }
+}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>Returns if the requested resource is not found</p><h2>HTTP status code <a href="http://httpstatus.es/412" target="_blank">412</a></h2><p>Returns for requests that include the If-Match header (to support ETags) and the resource has changed</p><h2>HTTP status code <a href="http://httpstatus.es/500" target="_blank">500</a></h2><p>Returns for server-related errors</p></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#accounts">Accounts</a></li><li><a href="#organizations">Organizations</a></li><li><a href="#products">Products</a></li></ul></div></div></div></div></body></html>

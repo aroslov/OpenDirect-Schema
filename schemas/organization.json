@@ -1,0 +1,55 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "The organization resource may represent an advertiser or agency (buyer).",
+    "type": "object",
+    "properties": {
+        "address": {
+            "$ref": "address.json"
+        },
+        "contacts": {
+            "type": "array",
+            "items": {
+                "$ref": "contact.json"
+            },
+            "minItems": 1
+        },
+        "disapprovalReason": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "fax": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "industry": {
+            "$ref": "industry.json"
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+        },
+        "phone": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        },
+        "status": {
+            "type": {
+                "enum": ["Pending", "Approved", "Disapproved", "Limited"]
+            }
+        },
+        "url": {
+            "type": "string",
+            "maxLength": 1024
+        }
+    },
+    "required": ["name", "contacts"]
+}

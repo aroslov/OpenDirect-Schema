@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "An account defines a buyer-advertiser relationship. Each account associates a buyer with one advertiser and is used to manage orders for one publisher.",
+    "type": "object",
+    "properties": {
+        "advertiserId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "buyerId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "name": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        }
+    },
+    "required": ["advertiserId", "buyerId", "name"]
+}

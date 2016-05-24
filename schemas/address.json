@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "The address object is used to provide values for the ORGANIZATION resource",
+    "type": "object",
+    "properties": {
+        "city": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 35
+        },
+        "country": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+        },
+        "addressLine1": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255
+        },
+        "addressLine2": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "postalCode": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 15
+        },
+        "state": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 35
+        }
+    },
+    "required": ["city", "country", "addressLine1"]
+}

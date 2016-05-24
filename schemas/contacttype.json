@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Defines the possible types of Contacts (e.g. Billing, Buyer, Creative)",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "name": {
+            "type": "string"
+        }
+    }
+}

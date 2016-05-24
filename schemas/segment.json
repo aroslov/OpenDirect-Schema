@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "The segment object is made up of TARGET and TARGET VALUE reference data objects and is used to specify targeting options for a LINE resource",
+    "type": "object",
+    "properties": {
+        "target": {
+            "$ref" : "target.json"
+        },
+        "targetValues": {
+            "type": "array",
+            "items": {
+                "$ref": "targetvalue.json"
+            },
+        }
+    },
+    "required": ["target", "targetValues"]
+}

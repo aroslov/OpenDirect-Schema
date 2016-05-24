@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "efines a unit of measure that a cost (i.e. BasePrice) is expressed in",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "name": {
+            "type": "string"
+        }
+    }
+}

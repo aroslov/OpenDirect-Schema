@@ -1,0 +1,124 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "A Product resource identifies anything from an ad placement to a Run of Network product in the publisher’s product catalog.",
+    "type": "object",
+    "properties": {
+        "activeDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "adFormatTypes": {
+            "type": "array",
+            "items": {
+                "$ref" : "adformattype.json"
+            }
+        },
+        "allowNoCreative": {
+            "type": "boolean"
+        },
+        "basePrice": {
+            "type": "number",
+            "minimum": 0
+        },
+        "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+        },
+        "deliveryType": {
+            "$ref" : "deliverytype.json"
+        },
+        "description": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "domain": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "estimatedDailyAvails": {
+            "type": "string"
+        },
+        "geometry": {
+            "type": "array",
+            "items": {
+                "$ref" : "size.json"
+            }
+        },
+        "httpsCompatible": {
+            "type": "boolean"
+        },
+        "icon": {
+            "type": "string"
+        },
+        "id": {
+            "type": "string"
+        },
+        "inventoryType": {
+            "type": "array",
+            "items": {
+                "$ref" : "inventorytype.json"
+            }
+        },
+        "languages": {
+            "type": "array",
+            "items": {
+                "$ref" : "language.json"
+            }
+        },
+        "leadTime": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "name": {
+            "type": "string",
+            "maxLength": 38
+        },
+        "maturityLevel": {
+            "$ref" : "maturitylevel.json"
+        },
+        "maxDuration": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "minDuration": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "minSpend": {
+            "type": "number",
+            "minimum": 0
+        },
+        "position": {
+            "$ref" : "adposition.json"
+        },
+        "productTags": {
+            "type": "array",
+            "items": {
+                "type" : "string",
+                "maxLength" : 100
+            },
+            "maxItems": 500
+        },
+        "rateType": {
+            "$ref": "ratetype.json"
+        },
+        "retirementDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "targetTypes": {
+            "type": "array",
+            "items": {
+                "$ref" : "target.json"
+            }
+        },
+        "timeZone": {
+            "type": "string"
+        },
+        "url": {
+            "type": "string"
+        }
+    },
+    "required": ["adFormatTypes", "basePrice", "currency", "geometry", "id", "rateType"]
+}

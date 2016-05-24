@@ -1,0 +1,70 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "The Order resource specifies the plan’s start and end dates, estimated budget, currency, and preferred billing method for all line items in the order",
+    "type": "object",
+    "properties": {
+        "accountId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "brand": {
+            "type": "string",
+            "maxLength": 25
+        },
+        "budget": {
+            "type": "number",
+            "minimum": 0
+        },
+        "contacts": {
+            "type": "array",
+            "items": {
+                "$ref": "contact.json"
+            }
+        },
+        "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+        },
+        "endDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "orderExpiryDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "industry": {
+            "$ref": "industry.json"
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+        },
+        "orderStatus": {
+            "type": "string"
+        },
+        "packageOnly": {
+            "type": "boolean"
+        },
+        "preferredBillingMethod": {
+            "type": {
+                "enum": ["Electronic", "Postal"]
+            }
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        },
+        "startDate": {
+            "type": "string",
+            "maxLength": 26
+        }
+    },
+    "required": ["currency", "name"]
+}

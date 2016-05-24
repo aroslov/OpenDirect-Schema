@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Defines an industry that the advertiser belongs to",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "parentId": {
+            "type": "string"
+        },
+        "subIndustries": {
+            "$ref": "#"
+        }
+    }
+}

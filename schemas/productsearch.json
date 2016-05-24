@@ -1,0 +1,38 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "The ProductSearch object is used to generate a general list of products independent of their availability",
+    "type": "object",
+    "properties": {
+        "adFormatTypes": {
+            "type": "array",
+            "items": {
+                "$ref" : "adformattype.json"
+            }
+        },
+        "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3
+        },
+        "deliveryType": {
+            "$ref" : "deliverytype.json"
+        },
+        "domain": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "geometry": {
+            "type": "array",
+            "items": {
+                "$ref" : "size.json"
+            }
+        },
+        "productTags": {
+            "type": "array",
+            "items": {
+                "type" : "string"
+            }
+        }
+    },
+    "required": ["adFormatTypes", "currency", "deliveryType", "domain", "geometry"]
+}

@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Defines an agency or advertiser contact",
+    "type": "object",
+    "properties": {
+        "address": {
+            "$ref": "address.json"
+        },
+        "email": {
+            "type": "string",
+            "maxLength": 254
+        },
+        "honorific": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "fax": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "firstName": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "lastName": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "phone": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "title": {
+            "type": "string",
+            "maxLength": 30
+        },
+        "type": {
+            "$ref": "contacttype.json"
+        }
+    },
+    "required": ["type"]
+}

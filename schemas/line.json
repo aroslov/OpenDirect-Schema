@@ -1,0 +1,83 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Line resources are included in an order and provide details about the product being booked, status, start and end dates, and other settings for the order item.",
+    "type": "object",
+    "properties": {
+        "bookingStatus": {
+            "type": "string"
+        },
+        "comment": {
+            "type": "string",
+            "maxLength": 255
+        },
+        "cost": {
+            "type": "number",
+            "minimum": 0
+        },
+        "endDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "frequencyCount": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "frequencyInterval": {
+            "type": "string",
+            "maxLength": 5
+        },
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "quantity": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+        },
+        "orderId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "productId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        },
+        "rate": {
+            "type": "number",
+            "minimum": 0
+        },
+        "rateType": {
+            "$ref": "ratetype.json"
+        },
+        "reservedExpiryDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "startDate": {
+            "type": "string",
+            "maxLength": 26
+        },
+        "stateChangeReason": {
+            "type": "string"
+        },
+        "targeting": {
+            "type": "array",
+            "items": {
+                "$ref": "segment.json"
+            }
+        },
+        "usesExpandables": {
+            "type": "boolean"
+        }
+    },
+    "required": ["endDate", "name", "productId", "startDate"]
+}

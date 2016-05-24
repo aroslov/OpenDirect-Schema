@@ -1,0 +1,263 @@
+#%RAML 0.8
+#Author: Anton Roslov
+title: IAB OpenDirect 
+version: v1.5
+baseUri: https://opendirect-publisher/api/{version}
+mediaType: application/json
+
+securitySchemes:
+    - oauth_2_0:
+        description: |
+            OpenDirect supports OAuth 2.0 for authenticating all API requests.
+        type: OAuth 2.0
+        describedBy:
+            headers:
+                AccessToken:
+                    description: |
+                       Used to send a valid OAuth 2 access token. 
+                    type: string
+            responses:
+                401:
+                    description: |
+                        Return if the user is not authorized to make the request.
+        settings:
+            accessTokenUri: /oauth2/token
+            authorizationUri: /oauth2/authorize
+
+
+securedBy: [oauth_2_0]
+
+schemas:
+    - account: !include schemas/account.json
+    - accounts: !include schemas/accounts.json
+    - creative: !include schemas/creative.json
+    - creatives: !include schemas/creatives.json
+    - line: !include schemas/line.json
+    - lines: !include schemas/lines.json
+    - order: !include schemas/order.json
+    - orders: !include schemas/orders.json
+    - organization: !include schemas/organization.json
+    - organizations: !include schemas/organizations.json
+    - product: !include schemas/product.json
+    - products: !include schemas/products.json
+    - productavails: !include schemas/productavails.json
+    - productavailssearch: !include schemas/productavailssearch.json
+    - errors: !include schemas/errors.json
+
+traits:
+    - paged:
+        usage: apply this to resources that support paging
+        queryParameters:
+            count:
+                type: integer
+                minimum: 1
+                description: Indicates the number of desired records to be returned in the response.
+            offset:
+                type: integer
+                minimum: 0
+                description: >
+                    Indicates the starting point from which the number of records should be returned in the response. 
+                    If you wish to start with the first record, you must provide 0. 
+                    Always use the number prior to the record position that is desired. Recommended Count Limit: 250
+        responses:
+            200:
+                headers:
+                    X-Total-Count:
+                        type: integer
+                        description: Total number of records (for paging)
+    - general:
+        responses:
+            404: 
+                description: Returns if the requested resource is not found
+            500: 
+                description: Returns for server-related errors
+            302: 
+                description: Returns if the resource has moved. The Location header must include the new URI
+            304:
+                description: >
+                    Returns for requests that include the If-None- Match header (to support ETags) and the 
+                    resource has not changed.
+            412:
+                description: >
+                    Returns for requests that include the If-Match header (to support ETags) 
+                    and the resource has changed
+    - object_sender:
+        body:
+            application/json: 
+                schema: <<resourcePathName | !singularize>>
+        responses:
+            400: 
+                description: > 
+                    Returns for a POST, PUT or PATCH request that contains invalid data, or when the 
+                    requested action (i.e. book) is not valid.
+                body:
+                    schema: errors
+    - object_responder:
+        responses:
+            200:
+                description: Return <<resourcePathName>> object
+                body:
+                    schema: <<resourcePathName>>
+    - object_responder_singular:
+        responses:
+            200:
+                description: Returns <<resourcePathName | !singularize>> object
+                body:
+                    schema: <<resourcePathName | !singularize>>            
+    - filterable:
+        usage: apply this to resources that support filtering
+        queryParameters:
+            $filter: 
+                description: >
+                    OData filter, see http://www.odata.org/documentation/
+                example: contains(Name,'ABC')
+    - line_bookable:
+        usage: apply this to bookable lines
+        queryParameters:
+            book:
+                type: string
+                description: Books the line (parameter value is empty)
+            reserve:
+                type: string
+                description: Reserves the line (parameter value is empty)
+            cancel:
+                type: string
+                description: Cancels the line (parameter value is empty)
+            reset:
+                type: string
+                description: Moves the line back to the Draft state (parameter value is empty)
+
+
+resourceTypes:
+    - collection:
+        usage: This resourceType should be used for any collection of items
+        description: The collection of <<resourcePathName>>
+        get:
+            description: Get a list of all <<resourcePathName>>, optionally filtered
+            is: [general, paged, object_responder]
+        post:
+            description: Add a new <<resourcePathName | !singularize>>
+            is: [general, object_sender]
+            responses:
+                200:
+                    description: Return for a successful POST request
+    - collection_read_only:
+        usage: This resourceType should be used for any collection of items
+        description: The collection of <<resourcePathName>>
+        get:
+            description: Get a list of all <<resourcePathName>>, optionally filtered
+            is: [general, paged, object_responder]
+    - report:
+        get:
+            description: Gets a report for <<resourcePathName>>
+            is: [general, object_responder_singular]
+    - member:
+        get:
+            description: Gets the specified <<resourcePathName>>
+            is: [general, object_responder_singular]
+        put:
+            description: Updates the specified <<resourcePathName>>
+            is: [general, object_sender]
+            responses:
+                200:
+                    description: Returns for a successful PUT request
+        patch:
+            description: Updates the specified <<resourcePathName>>
+            is: [general, object_sender]
+            responses:
+                200:
+                    description: Returns for a successful PATCH request
+        delete:
+            description: Deletes the specified <<resourcePathName>>
+            is: [general]
+            responses:
+                200:
+                    description: Returns for a successful DELETE request
+    - member_read_only:
+        get:
+            description: Gets the specified <<resourcePathName | !singularize>>
+            is: [general, object_responder_singular]
+
+
+/accounts: 
+    displayName: Accounts
+    type: collection
+    is: [filterable]
+    /{accountId}:
+        type: member_read_only
+        /assignments:
+            type: collection
+            is: [filterable]
+            /{assignmentId}:
+                type: member
+        /creatives:
+            type: collection
+            is: [filterable]
+            /{creativeId}:
+                type: member
+        /orders:
+            type: collection
+            is: [filterable]
+            /{orderId}:
+                type: member
+                /lines:
+                    type: collection
+                    /stats:
+                        type: report
+                    /{lineId}:
+                        type: member
+                        put:
+                            description: Update, reserve, book, or cancel a line
+                            is: [general, line_bookable]
+                        patch:
+                            description: Update, reserve, book, or cancel a line
+                            is: [general, line_bookable]
+                        /stats:
+                            type: report
+
+/organizations:
+    displayName: Organizations
+    type: collection
+    is: [filterable]
+    /{organizationId}:
+        type: member
+
+/products:
+    displayName: Products
+    type: collection_read_only
+    /{productId}:
+        type: member_read_only
+    /search:
+        post:
+            description: >
+                Gets a list of Products from the product catalog that matches the 
+                specified filter criteria 
+            is: [general, paged]
+            body:
+                schema: productsearch
+            responses:
+                200:
+                    description: Returns a products object
+                    body:
+                        schema: products
+                400: 
+                    description: Return for POST request that contains invalid data
+                    body:
+                        schema: errors
+    /avails:
+        post:
+            description: >
+                Gets pricing and avails information for the specified products
+            is: [general, paged]
+            body:
+                schema: productavailssearch
+            responses:
+                200:
+                    description: Returns a productsavails object
+                    body:
+                        schema: productavails
+                400: 
+                    description: Return for POST request that contains invalid data
+                    body:
+                        schema: errors
+

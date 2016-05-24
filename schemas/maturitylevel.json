@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Defines the possible ad formats",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "level": {
+            "type": "string"
+        }
+    }
+}

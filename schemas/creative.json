@@ -1,0 +1,54 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Defines a Creative resource. The Creative provides information about the ad to be displayed for a line of the order.",
+    "type": "object",
+    "properties": {
+        "accountId": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "adFormatType": {
+            "$ref" : "adformattype.json"
+        },
+        "adRejectionReason": {
+            "type": "string"
+        },
+        "status": {
+            "type": {
+                "enum": ["Pending", "Approved", "Disapproved", "Limited"]
+            }
+        },
+        "backupFlashAsset": {
+            "type": "string"
+        },
+        "clickUrl": {
+            "type": "string"
+        },
+        "creativeAsset": {
+            "type": "string"
+        },
+        "geometry": {
+            "$ref" : "size.json"
+        },
+        "httpsCompatible": {
+            "type": "boolean"
+        },
+        "id": {
+            "type": "string"
+        },
+        "language": {
+            "$ref" : "language.json"
+        },
+        "maturityLevel": {
+            "$ref" : "maturitylevel.json"
+        },
+        "name": {
+            "type": "string"
+        },
+        "providerData": {
+            "type": "string",
+            "maxLength": 1000
+        }
+    },
+    "required": ["advertiserId", "buyerId", "name"]
+}
